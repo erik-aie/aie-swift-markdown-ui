@@ -12,6 +12,7 @@ struct HorizontalScrollView<Content: View>: View {
     let content: Content
     @State private var offset: CGFloat = 0
     @GestureState private var dragOffset: CGFloat = 0
+    @State private var contentHeight: CGFloat = 0
 
     init(@ViewBuilder content: () -> Content) {
         self.content = content()
@@ -22,6 +23,11 @@ struct HorizontalScrollView<Content: View>: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 content
                     .offset(x: offset + dragOffset)
+                    .background(
+                        GeometryReader { contentGeometry in
+                            Color.clear.preference(key: ContentHeightPreferenceKey.self, value: contentGeometry.size.height)
+                        }
+                    )
                     .gesture(
                         DragGesture()
                             .updating($dragOffset) { value, state, _ in
@@ -36,11 +42,24 @@ struct HorizontalScrollView<Content: View>: View {
                             }
                     )
             }
+            .frame(height: contentHeight)
             .scrollDisabled(true)
             .simultaneousGesture(
                 DragGesture(coordinateSpace: .local)
                     .onChanged { _ in }
             )
         }
+        .frame(height: contentHeight)
+        .onPreferenceChange(ContentHeightPreferenceKey.self) { height in
+            self.contentHeight = height
+        }
+    }
+}
+
+
+struct ContentHeightPreferenceKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
     }
 }
