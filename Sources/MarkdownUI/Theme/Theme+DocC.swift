@@ -94,6 +94,21 @@ extension Theme {
         .markdownMargin(top: .em(1.6), bottom: .zero)
     }
     .codeBlock { configuration in
+#if os(macOS)
+        configuration.label
+          .fixedSize(horizontal: false, vertical: true)
+          .relativeLineSpacing(.em(0.333335))
+          .markdownTextStyle {
+            FontFamilyVariant(.monospaced)
+            FontSize(.rem(0.88235))
+          }
+          .padding(.vertical, 8)
+          .padding(.leading, 14)
+          .background(Color.codeBackground)
+          .clipShape(.container)
+          .markdownMargin(top: .em(0.8), bottom: .zero)
+#else
+
         HorizontalScrollView {
         configuration.label
           .fixedSize(horizontal: false, vertical: true)
@@ -108,6 +123,7 @@ extension Theme {
       .background(Color.codeBackground)
       .clipShape(.container)
       .markdownMargin(top: .em(0.8), bottom: .zero)
+        #endif
     }
     .image { configuration in
       configuration.label

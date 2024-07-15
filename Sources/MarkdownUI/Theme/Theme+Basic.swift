@@ -82,6 +82,18 @@ extension Theme {
         .relativePadding(.trailing, length: .em(1))
     }
     .codeBlock { configuration in
+        #if os(macOS)
+        configuration.label
+          .fixedSize(horizontal: false, vertical: true)
+          .relativeLineSpacing(.em(0.15))
+          .relativePadding(.leading, length: .rem(1))
+          .markdownTextStyle {
+            FontFamilyVariant(.monospaced)
+            FontSize(.em(0.94))
+          }
+          .markdownMargin(top: .zero, bottom: .em(1))
+        #else
+        
       HorizontalScrollView {
         configuration.label
           .fixedSize(horizontal: false, vertical: true)
@@ -93,6 +105,7 @@ extension Theme {
           }
       }
       .markdownMargin(top: .zero, bottom: .em(1))
+        #endif
     }
     .table { configuration in
       configuration.label

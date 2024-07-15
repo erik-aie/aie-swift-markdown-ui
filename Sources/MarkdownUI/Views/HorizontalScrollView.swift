@@ -22,7 +22,6 @@ struct HorizontalScrollView<Content: View>: View {
         GeometryReader { geometry in
             ScrollView(.horizontal, showsIndicators: false) {
                 content
-                    .offset(x: offset + dragOffset)
                     .background(
                         GeometryReader { contentGeometry in
                             Color.clear.preference(key: ContentHeightPreferenceKey.self, value: contentGeometry.size.height)
