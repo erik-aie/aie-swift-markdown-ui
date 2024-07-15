@@ -28,26 +28,26 @@ struct HorizontalScrollView<Content: View>: View {
                             Color.clear.preference(key: ContentHeightPreferenceKey.self, value: contentGeometry.size.height)
                         }
                     )
-                    .gesture(
-                        DragGesture()
-                            .updating($dragOffset) { value, state, _ in
-                                state = value.translation.width
-                            }
-                            .onEnded { value in
-                                let scrollViewWidth = geometry.size.width
-                                let contentWidth = geometry.size.width // Adjust this if your content width is different
-                                let maxOffset = max(0, contentWidth - scrollViewWidth)
-                                
-                                offset = max(min(offset + value.translation.width, 0), -maxOffset)
-                            }
-                    )
+//                    .gesture(
+//                        DragGesture()
+//                            .updating($dragOffset) { value, state, _ in
+//                                state = value.translation.width
+//                            }
+//                            .onEnded { value in
+//                                let scrollViewWidth = geometry.size.width
+//                                let contentWidth = geometry.size.width // Adjust this if your content width is different
+//                                let maxOffset = max(0, contentWidth - scrollViewWidth)
+//                                
+//                                offset = max(min(offset + value.translation.width, 0), -maxOffset)
+//                            }
+//                    )
             }
             .frame(height: contentHeight)
-            .scrollDisabled(true)
-            .simultaneousGesture(
-                DragGesture(coordinateSpace: .local)
-                    .onChanged { _ in }
-            )
+            .fixedSize(horizontal: false, vertical: true)
+//            .simultaneousGesture(
+//                DragGesture(coordinateSpace: .local)
+//                    .onChanged { _ in }
+//            )
         }
         .frame(height: contentHeight)
         .onPreferenceChange(ContentHeightPreferenceKey.self) { height in
