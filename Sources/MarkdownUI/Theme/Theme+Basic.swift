@@ -82,7 +82,7 @@ extension Theme {
         .relativePadding(.trailing, length: .em(1))
     }
     .codeBlock { configuration in
-      ScrollView(.horizontal) {
+      HorizontalScrollView {
         configuration.label
           .fixedSize(horizontal: false, vertical: true)
           .relativeLineSpacing(.em(0.15))

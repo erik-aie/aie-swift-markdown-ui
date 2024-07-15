@@ -9,7 +9,7 @@ public protocol CodeSyntaxHighlighter {
   /// - Parameters:
   ///   - code: The code block.
   ///   - language: The language of the code block.
-  func highlightCode(_ code: String, language: String?) async -> Text
+  func highlightCode(_ code: String, language: String?) async -> AttributedString
 }
 
 /// A code syntax highlighter that returns unstyled code blocks.
@@ -17,8 +17,8 @@ public struct PlainTextCodeSyntaxHighlighter: CodeSyntaxHighlighter {
   /// Creates a plain text code syntax highlighter.
   public init() {}
 
-  public func highlightCode(_ code: String, language: String?) async -> Text {
-    Text(code)
+  public func highlightCode(_ code: String, language: String?) async -> AttributedString {
+    AttributedString(code)
   }
 }
 

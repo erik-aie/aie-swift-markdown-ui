@@ -111,7 +111,7 @@ extension Theme {
       .fixedSize(horizontal: false, vertical: true)
     }
     .codeBlock { configuration in
-      ScrollView(.horizontal) {
+        HorizontalScrollView {
         configuration.label
           .fixedSize(horizontal: false, vertical: true)
           .relativeLineSpacing(.em(0.225))

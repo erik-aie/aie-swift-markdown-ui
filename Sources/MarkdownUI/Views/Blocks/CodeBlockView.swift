@@ -7,7 +7,7 @@ struct CodeBlockView: View {
   private let fenceInfo: String?
   private let content: String
     
-    @State private var renderedCode: Text?
+@State private var renderedCode: AttributedString?
 
   init(fenceInfo: String?, content: String) {
     self.fenceInfo = fenceInfo
@@ -27,7 +27,7 @@ struct CodeBlockView: View {
   private var label: some View {
       VStack {
           if let renderedCode = renderedCode {
-              renderedCode
+              Text(renderedCode)
                   .textStyleFont()
                   .textStyleForegroundColor()
           }
