@@ -28,6 +28,7 @@ struct HorizontalScrollView<Content: View>: View {
                             Color.clear.preference(key: ContentHeightPreferenceKey.self, value: contentGeometry.size.height)
                         }
                     )
+                    .workaroundForVerticalScrollingBugInMacOS()
 //                    .gesture(
 //                        DragGesture()
 //                            .updating($dragOffset) { value, state, _ in
@@ -61,5 +62,16 @@ struct ContentHeightPreferenceKey: PreferenceKey {
     static var defaultValue: CGFloat = 0
     static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
         value = max(value, nextValue())
+    }
+}
+
+// just a helper to make using nicer by keeping #if os(macOS) in one place
+extension View {
+    @ViewBuilder func workaroundForVerticalScrollingBugInMacOS() -> some View {
+#if os(macOS)
+        VerticalScrollingFixWrapper { self }
+#else
+        self
+#endif
     }
 }
