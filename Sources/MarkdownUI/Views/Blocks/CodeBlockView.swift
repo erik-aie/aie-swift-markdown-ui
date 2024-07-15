@@ -6,6 +6,8 @@ struct CodeBlockView: View {
 
   private let fenceInfo: String?
   private let content: String
+    
+    @State private var renderedCode: Text?
 
   init(fenceInfo: String?, content: String) {
     self.fenceInfo = fenceInfo
@@ -23,8 +25,16 @@ struct CodeBlockView: View {
   }
 
   private var label: some View {
-    self.codeSyntaxHighlighter.highlightCode(self.content, language: self.fenceInfo)
-      .textStyleFont()
-      .textStyleForegroundColor()
+      VStack {
+          if let renderedCode = renderedCode {
+              renderedCode
+                  .textStyleFont()
+                  .textStyleForegroundColor()
+          }
+      }
+      .task {
+          renderedCode = await self.codeSyntaxHighlighter.highlightCode(self.content, language: self.fenceInfo)
+      }
+      
   }
 }
