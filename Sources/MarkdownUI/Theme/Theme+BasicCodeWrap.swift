@@ -90,7 +90,6 @@ extension Theme {
     }
     .codeBlock { configuration in
         configuration.label
-          .fixedSize(horizontal: false, vertical: true)
           .relativeLineSpacing(.em(0.15))
           .relativePadding(.leading, length: .rem(1))
           .markdownTextStyle {
