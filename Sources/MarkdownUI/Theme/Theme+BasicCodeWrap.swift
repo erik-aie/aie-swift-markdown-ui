@@ -90,13 +90,13 @@ extension Theme {
     }
     .codeBlock { configuration in
         configuration.label
-          .relativeLineSpacing(.em(0.15))
-          .relativePadding(.leading, length: .rem(1))
-          .markdownTextStyle {
-            FontFamilyVariant(.monospaced)
-            FontSize(.em(0.94))
-          }
-          .markdownMargin(top: .zero, bottom: .em(1))
+//          .relativeLineSpacing(.em(0.15))
+//          .relativePadding(.leading, length: .rem(1))
+//          .markdownTextStyle {
+//            FontFamilyVariant(.monospaced)
+//            FontSize(.em(0.94))
+//          }
+//          .markdownMargin(top: .zero, bottom: .em(1))
     }
     .table { configuration in
       configuration.label
